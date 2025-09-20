@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naveye</title>
+
+  <!-- Fonte Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+ 
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-content">
+      <div class="logo">Naveye</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#projeto">About the project</a></li>
+          <li><a href="#bengala">Smart identifier</a></li>
+          <li><a href="#oculos">Smart lenses</a></li>
+          <li><a href="#quem-somos">We</a></li>
+          <li><a href="#contato">Contat us</a></li>
+        </ul>
+      </nav>
+      <div class="burger" style="display:none;cursor:pointer;">
+        ☰
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1> Naveye - Visão tecnológica</h1>
+      <p>Unindo soluções inteligentes para transformar a mobilidade e acessibilidade.</p>
+      <a href="#projeto" class="btn"> Know the project </a>
+    </div>
+  </section>
+
+  <!-- Sobre o Projeto -->
+  <section id="projeto" class="section">
+    <div class="container">
+      <h2>Sobre o Projeto</h2>
+      <p>
+        Buscamos através de um conjunto de objetos inteligentes auxiliar na locomoção de pessoas com deficiência visual, assim dando a elas mais autonomia, segurança e confiança  no seu cotídiano.
+      </p>
+    </div>
+  </section>
+
+  <!-- Bengala e Óculos com cards -->
+  <section id="bengala-oculos" class="section alt">
+    <div class="container">
+      <div class="cards">
+        <div class="card">
+          <h3>Smart identifier</h3>
+          <p> Sensores de distância e sinalização tátil ao usuário.</p>
+        </div>
+        <div class="card">
+          <h3>Smart lenses</h3>
+          <p> Identificação e sinalização sonora a qualquer risco eminente</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quem Somos -->
+  <section id="quem-somos" class="section">
+    <div class="container">
+      <h2>Quem Somos</h2>
+      <p>
+        Somos uma equipe de iniciação ciêntífica da FIAP, apaixonados por inovação e dedicados a criar
+        soluções que impactem positivamente a sociedade.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato" class="section alt">
+    <div class="container">
+      <h2>Contato</h2>
+      <p>Tem dúvidas, sugestões ou gostaria de falar com a gente? Preencha o formulário abaixo:</p>
+      <form class="contact-form" action="https://formspree.io/f/xrbanaaw" method="POST">
+        <input type="text" name="nome" placeholder="Seu nome" required>
+        <input type="email" name="email" placeholder="Seu email" required>
+        <textarea name="mensagem" rows="5" placeholder="Sua mensagem" required></textarea>
+        <button type="submit" class="btn">Enviar</button>
+      </form>
+      <p class="form-status"></p>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="container footer-content">
+      <p>© 2025 Naveye - Todos os direitos reservados</p>
+      <ul class="footer-links">
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Header sombra ao rolar
+    window.addEventListener('scroll', () => {
+      document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Formspree
+    const form = document.querySelector(".contact-form");
+    const statusMsg = document.querySelector(".form-status");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const data = new FormData(form);
+
+      fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          statusMsg.textContent = "Mensagem enviada com sucesso!";
+          statusMsg.style.color = "#27305C";
+          form.reset();
+        } else {
+          statusMsg.textContent = "Algo deu errado, tente novamente.";
+          statusMsg.style.color = "red";
+        }
+      }).catch(() => {
+        statusMsg.textContent = "Falha na conexão.";
+        statusMsg.style.color = "red";
+      });
+    });
+
+    // Animação fade-in do formulário
+    const formSection = document.querySelector(".contact-form");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          formSection.classList.add("visible");
+          observer.unobserve(formSection);
+        }
+      });
+    });
+    observer.observe(formSection);
+
+    // Menu mobile (hamburger)
+     const burger = document.querySelector('.burger');
+    const nav = document.querySelector('.nav-links');
+    burger.addEventListener('click', () => {
+      nav.classList.toggle('nav-active');
+    });
+
+    // Mostrar burger só em telas pequenas
+    function toggleBurger() {
+      if(window.innerWidth <= 768){
+        burger.style.display = 'block';
+      } else {
+        burger.style.display = 'none';
+        nav.classList.remove('nav-active');
+      }
+    }
+     window.addEventListener('resize', toggleBurger);
+    window.addEventListener('load', toggleBurger);
+  </script>
+</body>
+</html>
+
