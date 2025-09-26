@@ -67,7 +67,9 @@ header.scrolled {
 .section h2 { 
   font-size: 2rem; 
   background: linear-gradient(90deg,#27305C,#0056B3); 
+  background-clip: text;
   -webkit-background-clip: text; 
+  color: transparent;
   -webkit-text-fill-color: transparent; 
   margin-bottom:1.5rem; 
 }
